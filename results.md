@@ -13,3 +13,9 @@ Final accuracy result: 10.279999673366547 %
 ```
 Final accuracy result: 94.09000277519226 %
 ```
+
+## Exercise 4
+`lr = 0.5`
+```
+Final accuracy result: 95.56 %
+```

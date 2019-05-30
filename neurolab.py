@@ -11,6 +11,7 @@ import keras.models as k_models
 import keras.optimizers as k_optimizers
 import keras.preprocessing.image as k_image
 import keras.utils as k_utils
+import keras.activations as k_activations
 
 # importujemy biblioteke pomagajaca w rysowaniu wykresow i wizualizacji
 import matplotlib.pyplot as plt
@@ -178,23 +179,23 @@ def exercise_four():
     model = k_models.Sequential()  # nasza siec bedzie skladac sie z sekwencji warstw (wymienionych ponizej)
 
     # klasa k_layers.X to w rzeczywistosci keras.layers.X (patrz importy u gory pliku) - analogicznie dla innych modulow
-    model.add(None)  # zmienia ksztalt wejscia z (28, 28) na (784, )
-    # TODO: zastap None wykorzystujac odpowiednio skonstruowana instacje klasy k_layers.Reshape
-    model.add(None)  # normalizuje wejscie z 0.0 do 255.0 na 0.0 do 1.0
-    # TODO: zastap None uzywajac k_layers.Lambda i wykonujac z jej uzyciem odpowiednie dzielenie
-    model.add(None)  # pierwsza prawdziwa warstwa neuronow
-    # TODO: zastap None uzywajac k_layers.Dense, pamietaj o odpowiednim rozmiarze wejsciowym (parametr input_dim),
-    # TODO: (c.d.) wyjsciowym (parametr units) i aktywacji (parametr activation) - w tym przypadku relu
-    model.add(None)  # wyjsciowa warstwa neuronow
-    # TODO: zastap None uzywajac k_layers.Dense (analogicznie), pamietaj o wlasciwych rozmiarach i aktywacji softmax\
+    model.add(k_layers.Reshape((784,)))  # zmienia ksztalt wejscia z (28, 28) na (784, )
+    # TODONE: zastap None wykorzystujac odpowiednio skonstruowana instacje klasy k_layers.Reshape
+    model.add(k_layers.Lambda(lambda x: x/255.0))  # normalizuje wejscie z 0.0 do 255.0 na 0.0 do 1.0
+    # TODONE: zastap None uzywajac k_layers.Lambda i wykonujac z jej uzyciem odpowiednie dzielenie
+    model.add(k_layers.Dense(100, input_dim=(784,), activation=k_activations.relu))  # pierwsza prawdziwa warstwa neuronow
+    # TODONE: zastap None uzywajac k_layers.Dense, pamietaj o odpowiednim rozmiarze wejsciowym (parametr input_dim),
+    # TODONE: (c.d.) wyjsciowym (parametr units) i aktywacji (parametr activation) - w tym przypadku relu
+    model.add(k_layers.Dense(10, input_dim=(100, ), activation=k_activations.softmax))  # wyjsciowa warstwa neuronow
+    # TODONE: zastap None uzywajac k_layers.Dense (analogicznie), pamietaj o wlasciwych rozmiarach i aktywacji softmax\
 
     # teraz kompilujemy nasz zdefiniowany wczesniej model
     model.compile(
-        loss=None,  # tu podajemy czym jest funkcja loss
-        # TODO: zastap None wybierajac wlasciwy wariant z k_losses (entropia krzyzowa dla danych kategorycznych)
-        optimizer=None,  # a tu podajemy jak ja optymalizowac
-        # TODO: zastac None instancja wlasciwego silnika z k_optimizers (SGD = Stochastic Gradient Descent),
-        # TODO: (c.d.) pamietaj o ustaleniu wartosci parametra learning rate (lr)
+        loss=k_losses.categorical_crossentropy,  # tu podajemy czym jest funkcja loss
+        # TODONE: zastap None wybierajac wlasciwy wariant z k_losses (entropia krzyzowa dla danych kategorycznych)
+        optimizer=k_optimizers.SGD(lr=0.5),  # a tu podajemy jak ja optymalizowac
+        # TODONE: zastac None instancja wlasciwego silnika z k_optimizers (SGD = Stochastic Gradient Descent),
+        # TODONE: (c.d.) pamietaj o ustaleniu wartosci parametra learning rate (lr)
         metrics=['accuracy']  # tu informujemy, by w trakcie pracy zbierac informacje o uzyskanej skutecznosci
     )
     # trenujemy nasz skompilowany model (k_utils.to_categorical jest odpowiednikiem tf.one_hot)
@@ -202,7 +203,7 @@ def exercise_four():
     # oraz ewaluujemy jego skutecznosc
     loss_and_metrics = model.evaluate(test_images, k_utils.to_categorical(test_labels))
     print("Final accuracy result: {0} %".format(loss_and_metrics[1]*100.0))
-    # TODO: czy udalo sie uzyskac wynik podobny do tego z cwiczenia trzeciego?
+    # TODONE: czy udalo sie uzyskac wynik podobny do tego z cwiczenia trzeciego?
 
 
 def exercise_five():
@@ -256,8 +257,8 @@ def main():
     # intro()
     # exercise_one()
     # exercise_two()
-    exercise_three()
-    # exercise_four()
+    # exercise_three()
+    exercise_four()
     # exercise_five()
 
 
