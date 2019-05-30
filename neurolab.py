@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # TODO: by wybrac wykonywane cwiczenie zmodyfikuj funkcje main (na dole pliku)
 
 # importujemy przydatne skladowe biblioteki pomagajacej w uczeniu sieci neuronowych (niezbedna do dalszych cwiczen)
@@ -126,16 +127,16 @@ def exercise_two():
     # kolejne dwie sekcje nieco sie juz roznia - dodalismy dodatkowa warstwe wewnetrzna
     w1 = tf.Variable(tf.zeros([784, 100]))
     b1 = tf.Variable(tf.zeros([100]))
-    h1 = None
+    h1 = tf.nn.relu(tf.matmul(x_, w1) + b1)
 
     w2 = tf.Variable(tf.zeros([100, 10]))
     b2 = tf.Variable(tf.zeros([10]))
-    y = None
-    # TODO: zastap None, zaimplementuj aktywacje obu warstw wzorujac sie na exercise_one
+    y = tf.nn.softmax(tf.matmul(h1, w2) + b2)
+    # TODONE: zastap None, zaimplementuj aktywacje obu warstw wzorujac sie na exercise_one
     # dla pierwszej warstwy skorzystaj z tf.nn.relu, dla drugiej (wyjsciowej) nadal z tf.nn.softmax
 
-    cross_entropy = None
-    # TODO: wykorzystaj powyzej implementacje z exercise_one (jest nadal aktualna)
+    cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
+    # TODONE: wykorzystaj powyzej implementacje z exercise_one (jest nadal aktualna)
 
     # ta sekcja rowniez jest powtorka z poprzedniego cwiczenia
     session = _init_session()
@@ -253,8 +254,8 @@ def exercise_five():
 def main():
     # TODO: tu wybieraj wykonywane cwiczenie (wykonuj je zgodnie z kolejnoscia)
     # intro()
-    exercise_one()
-    # exercise_two()
+    # exercise_one()
+    exercise_two()
     # exercise_three()
     # exercise_four()
     # exercise_five()
