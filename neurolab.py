@@ -224,8 +224,8 @@ def exercise_five():
     # powyzsza siec jest i tak wyjatkowo mala - sluzy do zastosowan mobilnych, wiec jest silnie miniaturyzowana
 
     # otworzmy przykladowe zdjecie i dostosujemy jego rozmiar i zakres wartosci do wejscia sieci
-    image_path = 'nosacz.jpg'
-    image = k_image.load_img(image_path, target_size=(None, None))
+    image_path = 'axolotl.jpg'
+    image = k_image.load_img(image_path, target_size=(224, 224))
     # TODO: zastap None powyzej zmieniajac rozmiar na taki, jaki przyjmuje wejscie sieci (skorzystaj z wypisanego info)
     x = k_image.img_to_array(image)  # kolejne linie dodatkowo dostosowuja obraz pod dana siec
     x = np.expand_dims(x, axis=0)
@@ -243,8 +243,8 @@ def exercise_five():
 
     # finalnie podgladamy aktywacje jakie wysylaja neurony sieci w trakcie dzialania
     # w wypisanych wczesniej informacjach mozna latwo spradzic ile kanalow ma warstwa o danym numerze (i ktora to)
-    layer_to_preview = 4  # numer warstwy, ktorej aktywacje podgladamy
-    channel_to_preview = 16   # numer kanalu w tejze warstwie
+    layer_to_preview = 8  # numer warstwy, ktorej aktywacje podgladamy
+    channel_to_preview = 8   # numer kanalu w tejze warstwie
     get_activations = k.function([model.layers[0].input], [model.layers[layer_to_preview].output])
     activations = get_activations([x])
     plt.imshow(activations[0][0, :, :, channel_to_preview], cmap="viridis")
@@ -258,8 +258,8 @@ def main():
     # exercise_one()
     # exercise_two()
     # exercise_three()
-    exercise_four()
-    # exercise_five()
+    # exercise_four()
+    exercise_five()
 
 
 
