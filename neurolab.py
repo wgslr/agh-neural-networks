@@ -156,15 +156,15 @@ def exercise_three():
     correct_y = tf.placeholder(tf.uint8, [None])
     y_ = tf.one_hot(correct_y, 10)
 
-    w1 = None
-    b1 = None
-    h1 = None
+    w1 = tf.Variable(tf.truncated_normal([784, 100], stddev=0.1))
+    b1 = tf.Variable(tf.constant(0.1, shape=[100]))
+    h1 = tf.nn.relu(tf.matmul(x_, w1) + b1)
 
-    w2 = None
-    b2 = None
-    y = None
+    w2 = tf.Variable(tf.truncated_normal([100, 10], stddev=0.1))
+    b2 = tf.Variable(tf.constant(0.1, shape=[10]))
+    y = tf.nn.softmax(tf.matmul(h1, w2) + b2)
 
-    cross_entropy = None
+    cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
 
     session = _init_session()
     _optimise(session, x, correct_y, cross_entropy)
@@ -255,8 +255,8 @@ def main():
     # TODO: tu wybieraj wykonywane cwiczenie (wykonuj je zgodnie z kolejnoscia)
     # intro()
     # exercise_one()
-    exercise_two()
-    # exercise_three()
+    # exercise_two()
+    exercise_three()
     # exercise_four()
     # exercise_five()
 
