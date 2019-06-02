@@ -243,13 +243,27 @@ def exercise_five():
 
     # finalnie podgladamy aktywacje jakie wysylaja neurony sieci w trakcie dzialania
     # w wypisanych wczesniej informacjach mozna latwo spradzic ile kanalow ma warstwa o danym numerze (i ktora to)
-    layer_to_preview = 8  # numer warstwy, ktorej aktywacje podgladamy
-    channel_to_preview = 8   # numer kanalu w tejze warstwie
-    get_activations = k.function([model.layers[0].input], [model.layers[layer_to_preview].output])
-    activations = get_activations([x])
-    plt.imshow(activations[0][0, :, :, channel_to_preview], cmap="viridis")
-    plt.show()
+    # layer_to_preview = 8  # numer warstwy, ktorej aktywacje podgladamy
+    # channel_to_preview = 8   # numer kanalu w tejze warstwie
+    # get_activations = k.function([model.layers[0].input], [model.layers[layer_to_preview].output])
+    # activations = get_activations([x])
+    # plt.imshow(activations[0][0, :, :, channel_to_preview], cmap="viridis")
+    # plt.show()
+    visualize(model, x)
     # TODO: podejrzyj aktywacje w kolejnych warstwach; czym roznia sie te w poczatkowych od tych w koncowych?
+
+
+def visualize(model, x):
+    print(model.layers[1])
+    for layer in model.layers[1:]:
+        get_activations = k.function([model.layers[0].input], [layer.output])
+        activations = get_activations([x])
+        print(layer.input_shape)
+        print(layer.output_shape)
+        for channel in range(0, layer.output_shape[3], 1):
+            plt.imshow(activations[0][0, :, :, channel], cmap="viridis")
+            plt.show()
+
 
 
 def main():
