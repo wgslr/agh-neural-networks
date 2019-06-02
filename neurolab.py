@@ -12,6 +12,7 @@ import keras.optimizers as k_optimizers
 import keras.preprocessing.image as k_image
 import keras.utils as k_utils
 import keras.activations as k_activations
+import math
 
 # importujemy biblioteke pomagajaca w rysowaniu wykresow i wizualizacji
 import matplotlib.pyplot as plt
@@ -254,15 +255,29 @@ def exercise_five():
 
 
 def visualize(model, x):
+    MAX_CHANNELS = 32
+    ROWS = 2
+    COLUMNS = MAX_CHANNELS/ROWS
+
     print(model.layers[1])
     for layer in model.layers[1:]:
+        fig = plt.figure()
+
         get_activations = k.function([model.layers[0].input], [layer.output])
         activations = get_activations([x])
         print(layer.input_shape)
         print(layer.output_shape)
-        for channel in range(0, layer.output_shape[3], 1):
-            plt.imshow(activations[0][0, :, :, channel], cmap="viridis")
-            plt.show()
+
+        channels = layer.output_shape[3]
+        channel_id = 0
+        i = 1
+        while math.floor(channel_id) < channels:
+        # for channel in range(0, layer.output_shape[3], 1):
+            fig.add_subplot(ROWS, COLUMNS, i)
+            plt.imshow(activations[0][0, :, :, math.floor(channel_id)], cmap="viridis")
+            channel_id += max(channels / MAX_CHANNELS, 1)
+            i += 1
+        plt.show()
 
 
 
