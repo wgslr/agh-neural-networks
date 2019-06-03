@@ -16,6 +16,7 @@ import math
 
 # importujemy biblioteke pomagajaca w rysowaniu wykresow i wizualizacji
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 
 # importujemy biblioteke pomagajaca w obliczeniach numerycznych
 import numpy as np
@@ -258,27 +259,33 @@ def visualize(model, x):
     MAX_CHANNELS = 32
     ROWS = 2
     COLUMNS = MAX_CHANNELS/ROWS
+    # LAYERS = len(model.layers)
+    LAYERS = 5
 
-    print(model.layers[1])
-    for layer in model.layers[1:]:
-        fig = plt.figure()
+    fig = plt.figure()
+    outer_grid = gridspec.GridSpec(LAYERS, 1, wspace=0.0, hspace=0.5)
 
+    for i, layer in enumerate(model.layers[1:LAYERS + 1]):
         get_activations = k.function([model.layers[0].input], [layer.output])
         activations = get_activations([x])
-        print(layer.input_shape)
-        print(layer.output_shape)
+
+        inner_grid = gridspec.GridSpecFromSubplotSpec(2, 16,
+                subplot_spec=outer_grid[i], wspace=0.0, hspace=0.0)
 
         channels = layer.output_shape[3]
         channel_id = 0
-        i = 1
+        i = 0
         while math.floor(channel_id) < channels:
-        # for channel in range(0, layer.output_shape[3], 1):
-            fig.add_subplot(ROWS, COLUMNS, i)
-            plt.imshow(activations[0][0, :, :, math.floor(channel_id)], cmap="viridis")
+            print(math.floor(channel_id), channel_id)
+            ax = plt.Subplot(fig, inner_grid[i])
+            ax.imshow(activations[0][0, :, :, math.floor(channel_id)], cmap="viridis")
+            ax.set_xticks([])
+            ax.set_yticks([])
+            fig.add_subplot(ax)
+
             channel_id += max(channels / MAX_CHANNELS, 1)
             i += 1
-        plt.show()
-
+    plt.show()
 
 
 def main():
