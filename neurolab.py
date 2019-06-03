@@ -325,11 +325,11 @@ def homework2():
         value = d[name]
 
         counts[xoffset:xoffset+PATCH_SIZE, yoffset:yoffset+PATCH_SIZE] += 1
-        averages[xoffset:xoffset+PATCH_SIZE, yoffset:yoffset+PATCH_SIZE] += value
+        averages[xoffset:xoffset+PATCH_SIZE, yoffset:yoffset+PATCH_SIZE] += value / bench_prob
     averages = averages / counts
-    plt.imshow(averages, cmap='hot')
-    plt.savefig('heatmap.png')
-    plt.show()
+    plt.imshow(averages, cmap='jet')
+    filename = image_path + '.heatmap.png'
+    plt.savefig(filename)
 
 
 def predictions_dict(predictions):
