@@ -258,33 +258,36 @@ def exercise_five():
 def visualize(model, x):
     MAX_CHANNELS = 32
     ROWS = 2
-    COLUMNS = MAX_CHANNELS/ROWS
-    # LAYERS = len(model.layers)
-    LAYERS = 5
+    COLUMNS = math.floor(MAX_CHANNELS/ROWS)
+    LAYERS = len(model.layers) - 1
 
-    fig = plt.figure()
-    outer_grid = gridspec.GridSpec(LAYERS, 1, wspace=0.0, hspace=0.5)
+    fig = plt.figure(figsize=(COLUMNS * 1, 2.4 * LAYERS))
+    outer_grid = gridspec.GridSpec(LAYERS, 1, wspace=0.0, hspace=0.2)
 
     for i, layer in enumerate(model.layers[1:LAYERS + 1]):
         get_activations = k.function([model.layers[0].input], [layer.output])
         activations = get_activations([x])
 
-        inner_grid = gridspec.GridSpecFromSubplotSpec(2, 16,
+        inner_grid = gridspec.GridSpecFromSubplotSpec(ROWS, COLUMNS,
                 subplot_spec=outer_grid[i], wspace=0.0, hspace=0.0)
 
-        channels = layer.output_shape[3]
-        channel_id = 0
-        i = 0
-        while math.floor(channel_id) < channels:
-            print(math.floor(channel_id), channel_id)
-            ax = plt.Subplot(fig, inner_grid[i])
-            ax.imshow(activations[0][0, :, :, math.floor(channel_id)], cmap="viridis")
-            ax.set_xticks([])
-            ax.set_yticks([])
-            fig.add_subplot(ax)
+        try:
+            channels = layer.output_shape[3]
+            channel_id = 0
+            i = 0
+            while math.floor(channel_id) < channels:
+                print(math.floor(channel_id), channel_id)
+                ax = plt.Subplot(fig, inner_grid[i])
+                ax.imshow(activations[0][0, :, :, math.floor(channel_id)], cmap="viridis")
+                ax.set_xticks([])
+                ax.set_yticks([])
+                fig.add_subplot(ax)
 
-            channel_id += max(channels / MAX_CHANNELS, 1)
-            i += 1
+                channel_id += max(channels / MAX_CHANNELS, 1)
+                i += 1
+        except Exception as e:
+            print("Error: ", e)
+    plt.savefig("plot.png")
     plt.show()
 
 
