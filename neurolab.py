@@ -309,7 +309,7 @@ def homework2():
     x = k_mobilenet_v2.preprocess_input(x)
     predictions = model.predict(x)
     (_, name, bench_prob) = k_mobilenet_v2.decode_predictions(predictions)[0][0]
-
+    print(name, bench_prob)
     counts = np.zeros(shape=(IMG_SIZE, IMG_SIZE))
     averages = np.zeros(shape=(IMG_SIZE, IMG_SIZE))
 
@@ -321,6 +321,7 @@ def homework2():
         x = k_mobilenet_v2.preprocess_input(x)
 
         predictions = model.predict(x)
+        print(k_mobilenet_v2.decode_predictions(predictions, top=3)[0])
         d = predictions_dict(predictions)
         value = d[name]
 
@@ -329,7 +330,7 @@ def homework2():
     averages = averages / counts
     plt.imshow(averages, cmap='jet')
     filename = image_path + '.heatmap.png'
-    plt.savefig(filename)
+    plt.savefig(filename, bbox_inches='tight')
 
 
 def predictions_dict(predictions):

@@ -47,12 +47,12 @@ to robi skrypt.
 Dokładność osiągnięta bez zaciemnienia: 86.09594%
 
 ![](./hw2/shuttle.sq.jpg){width=224px}
-![](./hw2/shuttle.jpg.heatmap.png){width=350px}
+![](./hw2/shuttle.jpg.heatmap.png){width=240px}
 
 ## Axolotl
 
 Dokładność osiągnięta bez zaciemnienia: 96.48967%
 
 ![](./hw2/out.jpg){width=224px}
-![](./hw2/axolotl.jpg.heatmap.png){width=350px}
+![](./hw2/axolotl.jpg.heatmap.png){width=240px}
 
