@@ -260,11 +260,13 @@ def visualize(model, x):
     ROWS = 2
     COLUMNS = math.floor(MAX_CHANNELS/ROWS)
     LAYERS = len(model.layers) - 1
+    print("Visualizing {} layers".format(LAYERS))
 
-    fig = plt.figure(figsize=(COLUMNS * 1, 2.4 * LAYERS))
+    fig = plt.figure(figsize=(COLUMNS * 0.5, 1.2 * LAYERS))
     outer_grid = gridspec.GridSpec(LAYERS, 1, wspace=0.0, hspace=0.2)
 
     for i, layer in enumerate(model.layers[1:LAYERS + 1]):
+        print("Rendering layer {}".format(i))
         get_activations = k.function([model.layers[0].input], [layer.output])
         activations = get_activations([x])
 
@@ -273,10 +275,10 @@ def visualize(model, x):
 
         try:
             channels = layer.output_shape[3]
+            print("Rendering {} channels".format(channels))
             channel_id = 0
             i = 0
             while math.floor(channel_id) < channels:
-                print(math.floor(channel_id), channel_id)
                 ax = plt.Subplot(fig, inner_grid[i])
                 ax.imshow(activations[0][0, :, :, math.floor(channel_id)], cmap="viridis")
                 ax.set_xticks([])
