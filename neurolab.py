@@ -13,6 +13,8 @@ import keras.preprocessing.image as k_image
 import keras.utils as k_utils
 import keras.activations as k_activations
 import math
+import sys
+from itertools import product
 
 # importujemy biblioteke pomagajaca w rysowaniu wykresow i wizualizacji
 import matplotlib.pyplot as plt
@@ -255,11 +257,11 @@ def exercise_five():
     # TODO: podejrzyj aktywacje w kolejnych warstwach; czym roznia sie te w poczatkowych od tych w koncowych?
 
 
-def visualize(model, x):
+def visualize(model, x, layers_limit = 200, save = True):
     MAX_CHANNELS = 32
     ROWS = 2
     COLUMNS = math.floor(MAX_CHANNELS/ROWS)
-    LAYERS = len(model.layers) - 1
+    LAYERS = min(len(model.layers) - 1, layers_limit)
     print("Visualizing {} layers".format(LAYERS))
 
     fig = plt.figure(figsize=(COLUMNS * 0.5, 1.2 * LAYERS))
@@ -289,8 +291,51 @@ def visualize(model, x):
                 i += 1
         except Exception as e:
             print("Error: ", e)
-    plt.savefig("plot.png")
+    if save:
+        plt.savefig("plot2.png")
     plt.show()
+
+
+def homework2():
+    PATCH_SIZE = 56
+    STEP = PATCH_SIZE // 8
+    IMG_SIZE = 224
+    model = k_mobilenet_v2.MobileNetV2(weights='imagenet', include_top=True)
+    image_path = sys.argv[1] if len(sys.argv) > 1 else "nosacz.jpg"
+    image = k_image.load_img(image_path, target_size=(IMG_SIZE, IMG_SIZE))
+
+    x = k_image.img_to_array(image)
+    x = np.expand_dims(x, axis=0)
+    x = k_mobilenet_v2.preprocess_input(x)
+    predictions = model.predict(x)
+    (_, name, bench_prob) = k_mobilenet_v2.decode_predictions(predictions)[0][0]
+
+    counts = np.zeros(shape=(IMG_SIZE, IMG_SIZE))
+    averages = np.zeros(shape=(IMG_SIZE, IMG_SIZE))
+
+    for xoffset, yoffset in product(range(0, IMG_SIZE - PATCH_SIZE + 1, STEP), repeat=2):
+        print(xoffset, yoffset)
+        x = k_image.img_to_array(image)
+        x[xoffset:xoffset+PATCH_SIZE, yoffset:yoffset+PATCH_SIZE, :] = 200
+        x = np.expand_dims(x, axis=0)
+        x = k_mobilenet_v2.preprocess_input(x)
+
+        predictions = model.predict(x)
+        d = predictions_dict(predictions)
+        value = d[name]
+
+        counts[xoffset:xoffset+PATCH_SIZE, yoffset:yoffset+PATCH_SIZE] += 1
+        averages[xoffset:xoffset+PATCH_SIZE, yoffset:yoffset+PATCH_SIZE] += value
+    averages = averages / counts
+    plt.imshow(averages, cmap='hot')
+    plt.savefig('heatmap.png')
+    plt.show()
+
+
+def predictions_dict(predictions):
+    """returns dict from prediction name to percentage"""
+    preds = k_mobilenet_v2.decode_predictions(predictions)[0]
+    return {name: prob for (_, name, prob) in preds}
 
 
 def main():
@@ -300,7 +345,8 @@ def main():
     # exercise_two()
     # exercise_three()
     # exercise_four()
-    exercise_five()
+    #exercise_five()
+    homework2()
 
 
 
