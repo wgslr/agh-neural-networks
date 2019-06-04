@@ -27,7 +27,44 @@ i uruchamiałem komendą
 docker run --runtime=nvidia -it -v $(pwd):$(pwd) --workdir $(pwd) -u $(id -u):$(id -g) tfgpu:0.3O
 ```
 
-# Zadanie 1
+
+# Ćwiczenie 1
+```
+Final accuracy result: 90.53000211715698 %
+```
+
+# Ćwiczenie 2
+```
+Final accuracy result: 10.279999673366547 %
+```
+
+# Ćwiczenie 3
+```
+Final accuracy result: 94.09000277519226 %
+```
+
+# Ćwiczenie 4
+`lr = 0.5`
+```
+Final accuracy result: 95.56 %
+```
+
+# Ćwiczenie 5
+## Nosacz
+> Predicted class: [('n02489166', 'proboscis_monkey', 0.9579257), ('n02487347', 'macaque', 0.004297563), ('n02488291', 'langur', 0.001003495), ('n02483362', 'gibbon', 0.00088702055), ('n02493509', 'titi', 0.00086693815)]
+
+## Axolotl
+> Predicted class: [('n01632777', 'axolotl', 0.9648968), ('n02655020', 'puffer', 0.0010153259), ('n01631663', 'eft', 0.0006287955), ('n02870880', 'bookcase', 0.00051007094), ('n01950731', 'sea_slug', 0.0004804087)]
+
+## Wnioski
+Warstwy początkowe "na oko" bardziej przypominają początkowy obraz.
+Warstwy późniejsze tracą tę właściwość, a także zmniejsza się ich rozdzielczość.
+
+Dla warstwy 8 - wyraźnie widoczne krawędzie kształtów.
+
+
+
+# Zadanie domowe 1
 
 Przygotowana funkcja generuje dla każdej warstwy podgląd 32 kanałów.
 Kanały są równomiernie spośród wszystkich dostępnych, np. dla wartstwy o 960
@@ -37,7 +74,7 @@ Dla sieci ImageNet:
 
 ![](./hw1/plot.png)\ 
 
-# Zadanie 2
+# Zadanie domowe 2
 
 Wszystkie ilustracje zostały przeskalowane do kwadratowych proporcji, analogicznie jak
 to robi skrypt.
@@ -57,7 +94,7 @@ Dokładność osiągnięta bez zaciemnienia: 96.48967%
 ![](./hw2/axolotl.jpg.heatmap.png){width=240px}
 
 
-# Zadanie 3
+# Zadanie domowe 3
 
 ## Zdjęcie i wzorzec stylu:
 
