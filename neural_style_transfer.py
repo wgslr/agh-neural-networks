@@ -62,6 +62,8 @@ import argparse
 from keras.applications import vgg19
 from keras import backend as K
 
+from neurolab import visualize
+
 parser = argparse.ArgumentParser(description='Neural style transfer with Keras.')
 parser.add_argument('base_image_path', metavar='base', type=str,
                     help='Path to the image to transform.')
@@ -284,9 +286,13 @@ x = preprocess_image(base_image_path)
 for i in range(iterations):
     print('Start of iteration', i)
     start_time = time.time()
+    old_x = x
     x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(),
                                      fprime=evaluator.grads, maxfun=20)
     print('Current loss value:', min_val)
+    if i == 0:
+        visualize(model, old_x, save=True)
+
     # save current generated image
     img = deprocess_image(x.copy())
     fname = result_prefix + '_at_iteration_%d.png' % i

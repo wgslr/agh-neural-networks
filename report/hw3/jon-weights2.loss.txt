@@ -1,0 +1,39 @@
+Start of iteration 0
+Current loss value: 458016200.0
+Start of iteration 1
+Current loss value: 316416200.0
+Image saved as jon_vinci_weights2_at_iteration_1.png
+Iteration 1 completed in 9s
+Start of iteration 2
+Current loss value: 274098020.0
+Image saved as jon_vinci_weights2_at_iteration_2.png
+Iteration 2 completed in 9s
+Start of iteration 3
+Current loss value: 252416030.0
+Image saved as jon_vinci_weights2_at_iteration_3.png
+Iteration 3 completed in 9s
+Start of iteration 4
+Current loss value: 239881980.0
+Image saved as jon_vinci_weights2_at_iteration_4.png
+Iteration 4 completed in 9s
+Start of iteration 5
+Current loss value: 231452700.0
+Image saved as jon_vinci_weights2_at_iteration_5.png
+Iteration 5 completed in 9s
+Start of iteration 6
+Current loss value: 225596460.0
+Image saved as jon_vinci_weights2_at_iteration_6.png
+Iteration 6 completed in 9s
+Start of iteration 7
+Current loss value: 220817490.0
+Image saved as jon_vinci_weights2_at_iteration_7.png
+Iteration 7 completed in 9s
+Start of iteration 8
+Current loss value: 217032500.0
+Image saved as jon_vinci_weights2_at_iteration_8.png
+Iteration 8 completed in 9s
+Start of iteration 9
+Current loss value: 213759070.0
+Image saved as jon_vinci_weights2_at_iteration_9.png
+Iteration 9 completed in 9s
+

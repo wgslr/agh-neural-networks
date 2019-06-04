@@ -15,6 +15,7 @@ import keras.activations as k_activations
 import math
 import sys
 from itertools import product
+import traceback
 
 # importujemy biblioteke pomagajaca w rysowaniu wykresow i wizualizacji
 import matplotlib.pyplot as plt
@@ -291,8 +292,9 @@ def visualize(model, x, layers_limit = 200, save = True):
                 i += 1
         except Exception as e:
             print("Error: ", e)
+            traceback.print_exc()
     if save:
-        plt.savefig("plot2.png")
+        plt.savefig("plot2.png", bbox_inches='tight')
     plt.show()
 
 

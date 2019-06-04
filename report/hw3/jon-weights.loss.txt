@@ -1,0 +1,42 @@
+Start of iteration 0
+Current loss value: 648703100.0
+Visualizing 21 layers
+Image saved as jon_vinci_weights_at_iteration_0.png
+Iteration 0 completed in 39s
+Start of iteration 1
+Current loss value: 369939940.0
+Image saved as jon_vinci_weights_at_iteration_1.png
+Iteration 1 completed in 9s
+Start of iteration 2
+Current loss value: 292248670.0
+Image saved as jon_vinci_weights_at_iteration_2.png
+Iteration 2 completed in 9s
+Start of iteration 3
+Current loss value: 265809180.0
+Image saved as jon_vinci_weights_at_iteration_3.png
+Iteration 3 completed in 9s
+Start of iteration 4
+Current loss value: 248629860.0
+Image saved as jon_vinci_weights_at_iteration_4.png
+Iteration 4 completed in 9s
+Start of iteration 5
+Current loss value: 236871890.0
+Image saved as jon_vinci_weights_at_iteration_5.png
+Iteration 5 completed in 9s
+Start of iteration 6
+Current loss value: 227503070.0
+Image saved as jon_vinci_weights_at_iteration_6.png
+Iteration 6 completed in 9s
+Start of iteration 7
+Current loss value: 220876220.0
+Image saved as jon_vinci_weights_at_iteration_7.png
+Iteration 7 completed in 9s
+Start of iteration 8
+Current loss value: 215173800.0
+Image saved as jon_vinci_weights_at_iteration_8.png
+Iteration 8 completed in 10s
+Start of iteration 9
+Current loss value: 210685250.0
+Image saved as jon_vinci_weights_at_iteration_9.png
+Iteration 9 completed in 9s
+
